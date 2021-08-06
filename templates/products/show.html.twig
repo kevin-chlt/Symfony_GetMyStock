@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.name }}{% endblock %}
+
+{% block stylesheets %}
+<head>
+    <style>
+        #product-img{
+            min-height: 468px;
+            max-height: 700px;
+            max-width: 700px;
+            min-width: 468px
+        }
+    </style>
+</head>
+{% endblock %}
+
+{% block body %}
+        <div class="col mt-5 pt-5">
+            <img class="me-4 img-fluid img-thumbnail float-start" id="product-img" src="{{ asset(product.imagePath) }}">
+            <div class=" row mb-3 pb-2 border-bottom border-3 border-dark">
+                <h3 class="mb-1 text-decoration-underline">Référence : </h3>
+                <span class="fs-4">{{ product.id }}</span>
+            </div>
+            <div class="row mb-3 pb-2 border-bottom border-3 border-dark">
+                <h3 class="mb-1 text-decoration-underline">Produit :</h3>
+                <span class="fs-4">{{ product.name }}</span>
+            </div>
+            <div class="row mb-3 pb-2 border-bottom border-3 border-dark">
+                <h3 class="mb-1 text-decoration-underline">Categorie :</h3>
+                <span class="fs-4">{{ product.category.name }}</span>
+            </div>
+            <div class="row mb-3 pb-2 border-bottom border-3 border-dark">
+                <h3 class="mb-1 text-decoration-underline">Prix HT :</h3>
+                <span class="fs-4">{{ product.price }}</span>
+            </div>
+            <div class="row mb-3 pb-2 border-bottom border-3 border-dark">
+                <h3 class="mb-1 text-decoration-underline">Prix TTC :</h3>
+                <span class="fs-4">{{ addTva(product.price, product.category.name) | number_format(2, '.', ' ',' ') }}</span>
+            </div>
+        </div>
+        <div class="col d-flex justify-content-evenly align-items-center ">
+            <a href="{{ path('products_index') }}"><button type="button" class="btn btn-secondary">Retour à la liste du stock</button></a>
+            {% if (is_granted("ROLE_MANAGER")) %}
+                <a href="{{ path('products_edit', {'id': product.id}) }}">
+                    <button type="button" class="btn btn-success m-1"> Mettre à jour</button>
+                </a>
+                {{ include('products/_delete_form.html.twig') }}
+            {% endif %}
+        </div>
+    {% if product.id is not same as (products | length) %}
+        <div class="d-flex justify-content-end mt-5">
+            <a href="{{ path('products_show', {'id': product.id +1}) }}">
+                <button type="button" class="btn btn-info">Next
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"/>
+                    </svg>
+                </button>
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}

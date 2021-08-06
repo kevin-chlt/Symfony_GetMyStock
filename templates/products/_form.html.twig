@@ -1,0 +1,19 @@
+    <form method="POST" class="form-control d-flex flex-column mt-4 py-4" enctype="multipart/form-data">
+        <div class="col">
+            {{ form_start(form) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.price) }}
+            {{ form_row(form.category) }}
+            {{ form_row(form.imagePath) }}
+            {{ form_end(form) }}
+            <button class="btn btn-success mt-3" type="submit">Enregistrer</button>
+            <a href="{{ path('products_index') }}">
+                <button type="button" class="btn btn-secondary mt-3">Retour à la liste du stock</button>
+            </a>
+        </div>
+    </form>
+
+
+
+
+

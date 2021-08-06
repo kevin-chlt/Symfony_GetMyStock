@@ -1,0 +1,45 @@
+{% apply inky_to_html|inline_css(source('@css/foundation-emails.css')) %}
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+
+<body>
+
+<container>
+    <row>
+        <img class="thumbnail" src="{{ email.image('@image/entete-mail.jpg') }}"  alt="header"/>
+    </row>
+    <spacer size="5"></spacer>
+    <row>
+        <columns>
+            <h2 class="text-center">Bienvenue {{ email.to[0].name | capitalize}} !</h2>
+        </columns>
+    </row>
+</container>
+
+<container>
+    <row>
+        <p class="text-center">Vous devez confirmez votre adresse email afin de pouvoir accéder complétement à nos services de gestion en ligne.</p>
+    </row>
+    <row>
+        <p class="text-center">Pour ce faire, vous avez 7 jours (donc jusqu'au <u>{{ expiration_link | date('d/m/Y') }}</u>) pour cliquer sur le lien ci-dessous.</p>
+    </row>
+    <h-line></h-line>
+    <row>
+        <button class="expanded success" href="{{ url('confirm-page', {'key': user.accountKey | url_encode, 'id': user.id | url_encode}) }}">Confirmer mon adresse email</button>
+    </row>
+    <h-line></h-line>
+    <row>
+        <p class="text-center">Bien à vous, l'équipe de GetMyStock. </p>
+        <small>Ceci est un message automatique, merci de ne pas y répondre</small>
+    </row>
+</container>
+</body>
+</html>
+
+{% endapply %}

@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Page d'inscription
+{% endblock %}
+
+{% block body %}
+    <div class="col d-flex flex-column">
+        <div class="col d-flex flex-column justify-content-evenly my-3 py-4 align-items-center">
+            <h1 class="fw-bold text-decoration-underline fs-1 mb-5">Inscription</h1>
+            <h2 class="h3 mb-3">Veuillez renseignez vos nouveaux identifiants utilisateurs</h2>
+        </div>
+
+        <div class="col-6 align-self-center">
+            <form method="POST" class="form-control d-flex flex-column text-center py-5">
+                {{ form_start(form) }}
+                {{ form_row(form.username) }}
+                {{ form_rest(form) }}
+                <div class="d-flex align-self-center mt-4">
+                    <a class="btn btn-secondary me-5 btn-lg" href="{{ path('app_login') }}" >Retour à l'accueil</a>
+                    <button class="btn btn-success ms-5 btn-lg" type="submit">Enregistrement </button>
+                </div>
+                {{ form_end(form) }}
+            </form>
+        </div>
+    </div>
+{% endblock %}
